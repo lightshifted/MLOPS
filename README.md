@@ -19,8 +19,14 @@ gunicorn -c app/gunicorn.py -k uvicorn.workers.UvicornWorker app.api:app  # prod
 ## Git Branch Merge
 
 ```bash
-git checkout master   
-git branch main master -f    
-git checkout main  
-git push origin main -f 
+git checkout master
+git branch main master -f
+git checkout main
+git push origin main -f
+```
+
+## Generate Pre-Commit YAML (POWERSHELL)
+
+```bash
+pre-commit sample-config | out-file .pre-commit-config.yaml -encoding utf8
 ```
