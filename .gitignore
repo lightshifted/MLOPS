@@ -102,3 +102,6 @@ airflow/airflow.db
 
 # MacOS
 .DS_Store
+
+# notebooks
+notebooks/
