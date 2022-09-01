@@ -16,6 +16,7 @@ uvicorn app.api:app --host 0.0.0.0 --port 8000 --reload --reload-dir tagifai --r
 gunicorn -c app/gunicorn.py -k uvicorn.workers.UvicornWorker app.api:app  # prod
 ```
 
+<<<<<<< HEAD
 ## Circumventing Branch Merge Issue
 
 ```bash
@@ -23,4 +24,13 @@ git checkout master
 git branch main master -f
 git checkout main
 git push origin main -f
+=======
+## Git Branch Merge
+
+```bash
+git checkout master   
+git branch main master -f    
+git checkout main  
+git push origin main -f 
+>>>>>>> devops
 ```
