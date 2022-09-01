@@ -5,12 +5,12 @@ import warnings
 from argparse import Namespace
 from pathlib import Path
 from typing import Dict, List, Tuple
-import typer
 
 import joblib
 import mlflow
 import optuna
 import pandas as pd
+import typer
 from numpyencoder import NumpyEncoder
 from optuna.integration.mlflow import MLflowCallback
 
@@ -21,6 +21,7 @@ from tagifai import data, predict, train, utils
 warnings.filterwarnings("ignore")
 
 app = typer.Typer()
+
 
 @app.command()
 def elt_data():
@@ -37,6 +38,7 @@ def elt_data():
     df.to_csv(Path(config.DATA_DIR, "labeled_projects.csv"), index=False)
 
     ("✅ Saved data!")
+
 
 @app.command()
 def train_model(
@@ -86,6 +88,7 @@ def train_model(
     open(Path(config.CONFIG_DIR, "run_id.txt"), "w").write(run_id)
     utils.save_dict(performance, Path(config.CONFIG_DIR, "performance.json"))
 
+
 @app.command()
 def optimize(
     args_fp: str = "config/args.json", study_name: str = "optimization", num_trials: int = 20
@@ -118,6 +121,7 @@ def optimize(
     logger.info(f"\nBest value (f1): {study.best_trial.value}")
     logger.info(f"Best hyperparameters: {json.dumps(study.best_trial.params, indent=2)}")
 
+
 @app.command()
 def load_artifacts(run_id: str) -> Dict:
     """Load artifacts for a given run_id.
@@ -146,6 +150,7 @@ def load_artifacts(run_id: str) -> Dict:
         "model": model,
         "performance": performance,
     }
+
 
 @app.command()
 def predict_tag(text: str = "", run_id: str = None) -> None:

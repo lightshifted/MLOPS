@@ -1,14 +1,16 @@
-from email.policy import HTTP
-from fastapi import FastAPI, Request
 from datetime import datetime
+from email.policy import HTTP
 from functools import wraps
+from http import HTTPStatus
 from pathlib import Path
+from typing import Dict, List
+
+from fastapi import FastAPI, Request
+
+from app.schemas import PredictPayload
 from config import config
 from config.config import logger
 from tagifai import main, predict
-from http import HTTPStatus
-from typing import Dict, List
-from app.schemas import PredictPayload
 
 app = FastAPI(
     title="TagIfAI - Experiment",
@@ -64,13 +66,14 @@ def _predict(request: Request, payload: PredictPayload) -> Dict:
 def _performance(request: Request, filter: str = None) -> Dict:
     """Get the performance metrics"""
     performance = artifacts["performance"]["overall"]
-    data = {"performance":performance.get(filter, performance)}
+    data = {"performance": performance.get(filter, performance)}
     response = {
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,
         "data": data,
     }
     return response
+
 
 @app.get("/args", tags=["Arguments"])
 @construct_response
@@ -80,7 +83,7 @@ def _arg(request: Request) -> Dict:
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,
         "data": {
-        "args": vars(artifacts["args"]),
+            "args": vars(artifacts["args"]),
         },
     }
     return response
