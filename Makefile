@@ -25,6 +25,7 @@ venv:
 	& venv/scripts/activate && \
 	python -m pip install pip && \
 	python -m pip install -e
+	pre-commit install && pre-commit autoupdate
 
 # Test
 .PHONY: test
